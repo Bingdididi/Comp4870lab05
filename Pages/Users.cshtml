@@ -1,0 +1,26 @@
+@page
+@model UsersModel
+
+<h2>Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th> 
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th> <!-- Add a header for the Role -->
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var userRoleViewModel in Model.UsersList)
+    {
+        <tr>
+            <td>@userRoleViewModel.User.Email</td> 
+            <td>@userRoleViewModel.User.FirstName</td>
+            <td>@userRoleViewModel.User.LastName</td>
+            <td>@userRoleViewModel.RoleName</td> <!-- Display the role name -->
+        </tr>
+    }
+    </tbody>
+</table>
