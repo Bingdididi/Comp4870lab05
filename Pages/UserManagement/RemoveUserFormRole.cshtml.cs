@@ -2,11 +2,16 @@ using Code1stUsersRoles.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 public class RemoveUserFromRoleModel : PageModel
 {
     private readonly UserManager<CustomUser> _userManager;
     private readonly RoleManager<CustomRole> _roleManager;
+
+    public List<SelectListItem> Emails { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> Roles { get; set; } = new List<SelectListItem>();
 
     public RemoveUserFromRoleModel(UserManager<CustomUser> userManager, RoleManager<CustomRole> roleManager)
     {
@@ -18,6 +23,36 @@ public class RemoveUserFromRoleModel : PageModel
     public string Email { get; set; } // Changed from UserId to Email
     [BindProperty]
     public string RoleName { get; set; }
+
+public async Task OnGetAsync()
+{
+    Emails = await GetEmailsAsync();
+    Roles = await GetRolesAsync();
+}
+
+private async Task<List<SelectListItem>> GetEmailsAsync()
+{
+    var users = await _userManager.Users.ToListAsync();
+    var emailList = users.Select(u => new SelectListItem
+    {
+        Value = u.Email,
+        Text = u.Email
+    }).ToList();
+
+    return emailList;
+}
+
+private async Task<List<SelectListItem>> GetRolesAsync()
+{
+    var roles = await _roleManager.Roles.ToListAsync();
+    var roleList = roles.Select(r => new SelectListItem
+    {
+        Value = r.Name,
+        Text = r.Name
+    }).ToList();
+
+    return roleList;
+}
 
     public async Task<IActionResult> OnPostAsync()
     {

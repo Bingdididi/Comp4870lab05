@@ -2,13 +2,13 @@
 @model RemoveUserFromRoleModel
 
 <form method="post">
-     <div class="form-group">
+    <div class="form-group">
         <label for="Email">Email</label>
-        <input type="email" class="form-control" id="Email" name="Email" />
+        <select asp-for="Email" asp-items="Model.Emails" class="form-control"></select>
     </div>
     <div class="form-group">
         <label for="RoleName">Role Name</label>
-        <input type="text" class="form-control" id="RoleName" name="RoleName" />
+        <select asp-for="RoleName" asp-items="Model.Roles" class="form-control"></select>
     </div>
-    <button type="submit" class="btn btn-danger">Remove User from Role</button>
+    <button type="submit" class="btn btn-primary">Remove User from Role</button>
 </form>

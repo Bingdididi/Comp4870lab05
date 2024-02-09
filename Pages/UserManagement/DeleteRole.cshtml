@@ -3,8 +3,13 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="RoleName">Role Name</label>
-        <input type="text" class="form-control" id="RoleName" name="roleName" />
+        <label for="roleName">Role Name</label>
+        <select name="roleName" class="form-control">
+            @foreach (var role in Model.Roles)
+            {
+                <option value="@role.Value">@role.Text</option>
+            }
+        </select>
     </div>
     <button type="submit" class="btn btn-danger">Delete Role</button>
 </form>
